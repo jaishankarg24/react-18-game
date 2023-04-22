@@ -4,6 +4,7 @@ import { MouseEvent, useState } from "react";
 interface Props {
   items: string[];
   heading: string;
+  onSelectItem: (item: string) => void;
 }
 
 //without props destructuring
@@ -11,7 +12,7 @@ interface Props {
 // props.items.length
 
 //props destructuring
-function ListGroup({ items, heading }: Props) {
+function ListGroup({ items, heading, onSelectItem }: Props) {
   //let items = ["New York", "San Francisco", "Tokyo", "London", "Paris"];
   //items = [];
 
@@ -59,6 +60,7 @@ function ListGroup({ items, heading }: Props) {
             key={key}
             onClick={() => {
               setSelectedIndex(key);
+              onSelectItem(item);
             }}
           >
             {item}
