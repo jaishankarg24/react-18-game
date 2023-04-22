@@ -1,8 +1,18 @@
 //import { Fragment } from "react";
 import { MouseEvent, useState } from "react";
 
-function ListGroup() {
-  let items = ["New York", "San Francisco", "Tokyo", "London", "Paris"];
+interface Props {
+  items: string[];
+  heading: string;
+}
+
+//without props destructuring
+// function ListGroup(props: Props) {
+// props.items.length
+
+//props destructuring
+function ListGroup({ items, heading }: Props) {
+  //let items = ["New York", "San Francisco", "Tokyo", "London", "Paris"];
   //items = [];
 
   // if (items.length === 0)
@@ -32,7 +42,7 @@ function ListGroup() {
 
   return (
     <>
-      <h1>List</h1>
+      <h1>{heading}</h1>
 
       {/* {items.length === 0 ? <p>No item Found</p> : null} */}
       {/* {message} */}
