@@ -1,7 +1,7 @@
 //import { Fragment } from "react";
 function ListGroup() {
   let items = ["New York", "San Francisco", "Tokyo", "London", "Paris"];
-  items = [];
+  //items = [];
 
   // if (items.length === 0)
   //   return (
@@ -26,7 +26,15 @@ function ListGroup() {
       {items.length === 0 && <p>No item Found</p>}
       <ul className="list-group">
         {items.map((item, key) => (
-          <li key={key}>{item}</li>
+          <li
+            className="list-group-item"
+            key={key}
+            onClick={(event) =>
+              console.log(item + " Clicked " + key + " index ")
+            }
+          >
+            {item}
+          </li>
         ))}
       </ul>
     </>
