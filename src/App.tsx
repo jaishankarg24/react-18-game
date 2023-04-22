@@ -2,6 +2,7 @@ import Message from "./Message";
 import ListGroup from "./components/ListGroup";
 import Alert from "./components/Alert";
 import Button from "./components/Button";
+import { useState } from "react";
 
 function App() {
   let items = ["New York", "San Francisco", "Tokyo", "London", "Paris"];
@@ -11,6 +12,10 @@ function App() {
   };
 
   const onClickHandler = () => console.log("Clicked");
+
+  const [alertVisible, setAlertVisibility] = useState(false);
+
+  const onCloseHandler = () => setAlertVisibility(false);
 
   return (
     <div>
@@ -22,10 +27,18 @@ function App() {
       />
       {/* <Alert text="Hello world." /> */}
       {/* Passing Children */}
-      <Alert>
-        Hello <span>world.</span>
-      </Alert>
-      <Button color="danger" onClick={onClickHandler}>
+      {alertVisible && (
+        <Alert onClose={onCloseHandler}>
+          Hello <span>world.</span>
+        </Alert>
+      )}
+      {/* <Button color="danger" onClick={onClickHandler}>
+        My Button
+      </Button> */}
+      {/* <Button color="danger" onClick={() => console.log("clicked")}>
+        My Button
+      </Button> */}
+      <Button color="danger" onClick={() => setAlertVisibility(true)}>
         My Button
       </Button>
     </div>
