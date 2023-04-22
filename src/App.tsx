@@ -1,6 +1,7 @@
 import Message from "./Message";
 import ListGroup from "./components/ListGroup";
 import Alert from "./components/Alert";
+import Button from "./components/Button";
 
 function App() {
   let items = ["New York", "San Francisco", "Tokyo", "London", "Paris"];
@@ -8,6 +9,8 @@ function App() {
   const handleSelectItem = (item: string) => {
     console.log(item);
   };
+
+  const onClickHandler = () => console.log("Clicked");
 
   return (
     <div>
@@ -22,6 +25,9 @@ function App() {
       <Alert>
         Hello <span>world.</span>
       </Alert>
+      <Button color="danger" onClick={onClickHandler}>
+        My Button
+      </Button>
     </div>
   );
 }
