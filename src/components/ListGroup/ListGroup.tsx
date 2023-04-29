@@ -2,7 +2,23 @@
 import { MouseEvent, useState } from "react";
 //import "./ListGroup.css";
 
-import styles from "./ListGroup.module.css";
+//import styles from "./ListGroup.module.css";
+
+import styled from "styled-components";
+
+const List = styled.ul`
+  list-style: none;
+  padding: 0;
+`;
+
+const ListItem = styled.li<ListItemProps>`
+  padding: 5px 0px;
+  background: ${(props) => (props.active ? "blue" : "red")};
+`;
+
+interface ListItemProps {
+  active: boolean;
+}
 
 interface Props {
   items: string[];
@@ -39,7 +55,8 @@ function ListGroup({ items, heading, onSelectItem }: Props) {
   //let selectedIndex = 0; can't be accessible
 
   //Hook
-  const [selectedIndex, setSelectedIndex] = useState(-1);
+  //const [selectedIndex, setSelectedIndex] = useState(-1);
+  const [selectedIndex, setSelectedIndex] = useState(0);
   //useState(''); string type initializer
   // 0 = selectedIndex
   // 1 = updater function setSelectedIndex
@@ -52,9 +69,10 @@ function ListGroup({ items, heading, onSelectItem }: Props) {
       {/* {message} */}
       {/* {getMessage()} */}
       {items.length === 0 && <p>No item Found</p>}
-      <ul className={[styles.listGroup, styles.container].join(" ")}>
+      <List>
         {items.map((item, key) => (
-          <li
+          <ListItem
+            active={key === selectedIndex}
             className={
               selectedIndex === key
                 ? "list-group-item active"
@@ -67,9 +85,9 @@ function ListGroup({ items, heading, onSelectItem }: Props) {
             }}
           >
             {item}
-          </li>
+          </ListItem>
         ))}
-      </ul>
+      </List>
     </>
   );
 }
