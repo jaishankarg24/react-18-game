@@ -5,6 +5,7 @@ import Alert from "./components/Alert";
 import Button from "./components/Button";
 import { useState } from "react";
 import "./App.css";
+import { BsFillCalendarDayFill } from "react-icons/bs";
 
 function App() {
   let items = ["New York", "San Francisco", "Tokyo", "London", "Paris"];
@@ -21,6 +22,7 @@ function App() {
 
   return (
     <div>
+      <BsFillCalendarDayFill color="red" size="40" />
       <Message />
       <ListGroup
         items={items}
