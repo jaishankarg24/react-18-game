@@ -61,9 +61,12 @@ function ListGroup({ items, heading, onSelectItem }: Props) {
   // 0 = selectedIndex
   // 1 = updater function setSelectedIndex
 
+  const headingStyle = { backgroundColor: "green" };
+
   return (
     <>
-      <h1>{heading}</h1>
+      {/* <h1 style={{ backgroundColor: "yellowgreen" }}>{heading}</h1> */}
+      <h1 style={headingStyle}>{heading}</h1>
 
       {/* {items.length === 0 ? <p>No item Found</p> : null} */}
       {/* {message} */}
