@@ -2,10 +2,11 @@ import Message from "./Message";
 //import ListGroup from "./components/ListGroup/ListGroup";
 import ListGroup from "./components/ListGroup";
 import Alert from "./components/Alert";
-import Button from "./components/Button";
+import Button from "./components/Button/Button";
 import { useState } from "react";
 import "./App.css";
 import { BsFillCalendarDayFill } from "react-icons/bs";
+import Like from "./components/Like";
 
 function App() {
   let items = ["New York", "San Francisco", "Tokyo", "London", "Paris"];
@@ -22,6 +23,7 @@ function App() {
 
   return (
     <div>
+      <Like onClick={() => console.log("clicked")} />
       <BsFillCalendarDayFill color="red" size="40" />
       <Message />
       <ListGroup
@@ -42,7 +44,7 @@ function App() {
       {/* <Button color="danger" onClick={() => console.log("clicked")}>
         My Button
       </Button> */}
-      <Button color="danger" onClick={() => setAlertVisibility(true)}>
+      <Button color="primary" onClick={() => setAlertVisibility(true)}>
         My Button
       </Button>
     </div>
