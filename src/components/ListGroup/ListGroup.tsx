@@ -1,5 +1,6 @@
 //import { Fragment } from "react";
 import { MouseEvent, useState } from "react";
+import "./ListGroup.css";
 
 interface Props {
   items: string[];
