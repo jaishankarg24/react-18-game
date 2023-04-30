@@ -21,8 +21,28 @@ function App() {
 
   const onCloseHandler = () => setAlertVisibility(false);
 
+  const [drink, setDrink] = useState({ title: "Americano", price: 5 });
+
+  const handleClick = () => {
+    // const newDrink = {
+    //   title: drink.title,
+    //   price: drink.price + 1,
+    // };
+    // setDrink(newDrink);
+
+    // const newDrink = {
+    //   ...drink,
+    //   price: drink.price + 1,
+    // };
+    // setDrink(newDrink);
+
+    setDrink({ ...drink, price: drink.price + 1 });
+  };
+
   return (
     <div>
+      {drink.price}
+      <button onClick={handleClick}>Click Me</button>
       <Like onClick={() => console.log("clicked")} />
       <BsFillCalendarDayFill color="red" size="40" />
       <Message />
