@@ -8,6 +8,8 @@ import "./App.css";
 import { BsFillCalendarDayFill } from "react-icons/bs";
 import Like from "./components/Like";
 import produce from "immer";
+import NavBar from "./components/NavBar";
+import Cart from "./components/Cart";
 
 function App() {
   let items = ["New York", "San Francisco", "Tokyo", "London", "Paris"];
@@ -84,8 +86,12 @@ function App() {
     );
   };
 
+  const [cartItems, setCartItems] = useState(["Product1", "Product2"]);
+
   return (
     <div>
+      <NavBar cartItemsCount={cartItems.length} />
+      <Cart cartItems={cartItems} onClear={() => setCartItems([])} />
       {drink.price}
       <button onClick={handleClick}>Click Me</button>
       {customer.address.zipCode}
