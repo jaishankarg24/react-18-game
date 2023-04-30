@@ -5,7 +5,7 @@ import Alert from "./components/Alert";
 import Button from "./components/Button/Button";
 import { useState } from "react";
 import "./App.css";
-import { BsFillCalendarDayFill } from "react-icons/bs";
+import { BsFillCalendarDayFill, BsTags } from "react-icons/bs";
 import Like from "./components/Like";
 
 function App() {
@@ -54,12 +54,27 @@ function App() {
     });
   };
 
+  const [tags, setTags] = useState(["happy", "cheerful"]);
+
+  const handleArrayClick = () => {
+    // Add
+    setTags([...tags, "existing"]);
+
+    // Remove
+    setTags(tags.filter((tag) => tag !== "happy"));
+
+    // Update
+    setTags(tags.map((tag) => (tag === "cheerful" ? "happiness" : tag)));
+  };
+
   return (
     <div>
       {drink.price}
       <button onClick={handleClick}>Click Me</button>
       {customer.address.zipCode}
       <button onClick={handleCustomerClick}>Click Me</button>
+      {tags}
+      <button onClick={handleArrayClick}>Click Me</button>
       <Like onClick={() => console.log("clicked")} />
       <BsFillCalendarDayFill color="red" size="40" />
       <Message />
