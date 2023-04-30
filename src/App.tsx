@@ -67,6 +67,15 @@ function App() {
     setTags(tags.map((tag) => (tag === "cheerful" ? "happiness" : tag)));
   };
 
+  const [bugs, setBugs] = useState([
+    { id: 1, title: "Bug 1", fixed: false },
+    { id: 2, title: "Bug 2", fixed: false },
+  ]);
+
+  const handleBugArrayClick = () => {
+    setBugs(bugs.map((bug) => (bug.id === 1 ? { ...bug, fixed: true } : bug)));
+  };
+
   return (
     <div>
       {drink.price}
@@ -75,6 +84,7 @@ function App() {
       <button onClick={handleCustomerClick}>Click Me</button>
       {tags}
       <button onClick={handleArrayClick}>Click Me</button>
+      <button onClick={handleBugArrayClick}>Click Me</button>
       <Like onClick={() => console.log("clicked")} />
       <BsFillCalendarDayFill color="red" size="40" />
       <Message />
