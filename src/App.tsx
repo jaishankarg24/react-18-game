@@ -12,6 +12,7 @@ import NavBar from "./components/NavBar";
 import Cart from "./components/Cart";
 import ExpandableText from "./components/ExpandableText";
 import Form from "./components/Form";
+import ExpenseList from "./expense-tracker/ExpenseList";
 
 function App() {
   let items = ["New York", "San Francisco", "Tokyo", "London", "Paris"];
@@ -130,8 +131,19 @@ function App() {
     });
   };
   //items: [...cart.items, items.map((item) => {...item, quantity: quantity + 1})],
+
+  const [expenses, setExpenses] = useState([
+    { id: 1, description: "abc", amount: 10, category: "Utilities" },
+    { id: 2, description: "abc", amount: 10, category: "Utilities" },
+    { id: 3, description: "abc", amount: 10, category: "Utilities" },
+    { id: 4, description: "abc", amount: 10, category: "Utilities" },
+  ]);
   return (
     <div>
+      <ExpenseList
+        expenses={expenses}
+        onDelete={(id) => setExpenses(expenses.filter((e) => e.id !== id))}
+      />
       <Form />
       <ExpandableText maxChars={10}>
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam id
