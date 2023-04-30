@@ -39,10 +39,27 @@ function App() {
     setDrink({ ...drink, price: drink.price + 1 });
   };
 
+  const [customer, setCustomer] = useState({
+    name: "john",
+    address: {
+      city: "London",
+      zipCode: 94566,
+    },
+  });
+
+  const handleCustomerClick = () => {
+    setCustomer({
+      ...customer,
+      address: { ...customer.address, zipCode: 912356 },
+    });
+  };
+
   return (
     <div>
       {drink.price}
       <button onClick={handleClick}>Click Me</button>
+      {customer.address.zipCode}
+      <button onClick={handleCustomerClick}>Click Me</button>
       <Like onClick={() => console.log("clicked")} />
       <BsFillCalendarDayFill color="red" size="40" />
       <Message />
