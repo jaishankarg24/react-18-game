@@ -5,8 +5,9 @@ import Alert from "./components/Alert";
 import Button from "./components/Button/Button";
 import { useState } from "react";
 import "./App.css";
-import { BsFillCalendarDayFill, BsTags } from "react-icons/bs";
+import { BsFillCalendarDayFill } from "react-icons/bs";
 import Like from "./components/Like";
+import produce from "immer";
 
 function App() {
   let items = ["New York", "San Francisco", "Tokyo", "London", "Paris"];
@@ -73,7 +74,14 @@ function App() {
   ]);
 
   const handleBugArrayClick = () => {
-    setBugs(bugs.map((bug) => (bug.id === 1 ? { ...bug, fixed: true } : bug)));
+    // setBugs(bugs.map((bug) => (bug.id === 1 ? { ...bug, fixed: true } : bug)));
+
+    setBugs(
+      produce((draft) => {
+        const bug = draft.find((bug) => bug.id === 1);
+        if (bug) bug.fixed = true;
+      })
+    );
   };
 
   return (
@@ -84,6 +92,12 @@ function App() {
       <button onClick={handleCustomerClick}>Click Me</button>
       {tags}
       <button onClick={handleArrayClick}>Click Me</button>
+      {bugs.map((bug) => (
+        <p key={bug.id}>
+          {" "}
+          {bug.title} {bug.fixed ? "Fixed" : "New"}
+        </p>
+      ))}
       <button onClick={handleBugArrayClick}>Click Me</button>
       <Like onClick={() => console.log("clicked")} />
       <BsFillCalendarDayFill color="red" size="40" />
