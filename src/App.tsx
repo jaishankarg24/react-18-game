@@ -11,6 +11,7 @@ import produce from "immer";
 import NavBar from "./components/NavBar";
 import Cart from "./components/Cart";
 import ExpandableText from "./components/ExpandableText";
+import Form from "./components/Form";
 
 function App() {
   let items = ["New York", "San Francisco", "Tokyo", "London", "Paris"];
@@ -131,6 +132,7 @@ function App() {
   //items: [...cart.items, items.map((item) => {...item, quantity: quantity + 1})],
   return (
     <div>
+      <Form />
       <ExpandableText maxChars={10}>
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam id
         culpa accusantium odit. Veniam sit animi praesentium cum facere,
