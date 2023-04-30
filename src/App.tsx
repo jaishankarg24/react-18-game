@@ -88,8 +88,57 @@ function App() {
 
   const [cartItems, setCartItems] = useState(["Product1", "Product2"]);
 
+  //Exercise 1
+  const [game, setGame] = useState({
+    id: 1,
+    player: {
+      name: "john",
+    },
+  });
+
+  const handleGameClick = () => {
+    setGame({ ...game, player: { ...game.player, name: "jai" } });
+  };
+
+  //Exercise 2
+  const [pizza, setPizza] = useState({
+    name: "Spicy Pepperoni",
+    toppings: ["Mushroom"],
+  });
+
+  const handlePizzaClick = () => {
+    setPizza({ ...pizza, toppings: [...pizza.toppings, "NewToppings"] });
+  };
+
+  //Exercise 3
+  const [cart, setCart] = useState({
+    discount: 0.1,
+    items: [
+      { id: 1, title: "Product 1", quantity: 1 },
+      { id: 2, title: "Product 2", quantity: 1 },
+    ],
+  });
+
+  const handleCartQuantity = () => {
+    setCart({
+      ...cart,
+      items: cart.items.map((item) =>
+        item.id === 1 ? { ...item, quantity: item.quantity + 1 } : item
+      ),
+    });
+  };
+  //items: [...cart.items, items.map((item) => {...item, quantity: quantity + 1})],
   return (
     <div>
+      {game.player.name}
+      <button onClick={handleGameClick}>Click Me</button>
+      {pizza.toppings.map((piz) => (
+        <p key={piz}>{piz}</p>
+      ))}
+      <button onClick={handlePizzaClick}>Click Me</button>
+
+      <button onClick={handleCartQuantity}>Click Me</button>
+
       <NavBar cartItemsCount={cartItems.length} />
       <Cart cartItems={cartItems} onClear={() => setCartItems([])} />
       {drink.price}
