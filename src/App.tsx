@@ -10,6 +10,7 @@ import Like from "./components/Like";
 import produce from "immer";
 import NavBar from "./components/NavBar";
 import Cart from "./components/Cart";
+import ExpandableText from "./components/ExpandableText";
 
 function App() {
   let items = ["New York", "San Francisco", "Tokyo", "London", "Paris"];
@@ -130,6 +131,20 @@ function App() {
   //items: [...cart.items, items.map((item) => {...item, quantity: quantity + 1})],
   return (
     <div>
+      <ExpandableText maxChars={10}>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam id
+        culpa accusantium odit. Veniam sit animi praesentium cum facere,
+        quisquam ex voluptatibus ipsum magni maxime reprehenderit vero suscipit
+        mollitia deserunt repudiandae molestiae recusandae soluta obcaecati
+        debitis fugiat blanditiis. Deleniti, quam veniam ut deserunt aut
+        veritatis sunt rerum in iure cum ipsam, atque exercitationem ducimus
+        corrupti praesentium illo dolore omnis numquam libero. Placeat ex
+        corrupti sequi nam impedit quia tenetur eum eligendi! Illo, deserunt
+        quibusdam dolor incidunt labore distinctio numquam doloribus voluptatem
+        temporibus cum sed sit itaque dolore quia veritatis ipsam consequuntur
+        ab obcaecati tempore odit molestiae? Ea suscipit laudantium
+        consequuntur?
+      </ExpandableText>
       {game.player.name}
       <button onClick={handleGameClick}>Click Me</button>
       {pizza.toppings.map((piz) => (
