@@ -19,6 +19,7 @@ import ProductList from "./components/ProductList";
 // import axios, { AxiosError, CanceledError } from "axios";
 import apiClient, { CanceledError } from "./components/services/api-clients";
 import create, { User } from "./components/services/user-service";
+//import userService, { User } from "./components/services/user-service";
 
 // interface User {
 //   id: number;
@@ -358,10 +359,11 @@ function App() {
     //const abortController = new AbortController();
 
     setLoading(true);
-    const { request, cancel } = create.getAll();
+    const { request, cancel } = create.getAll<User>();
     request
       .then((res) => {
-        setUsers(res.data as User[]);
+        setUsers(res.data);
+        // setUsers(res.data as User[]);
         setLoading(false);
       })
       .catch((err) => {

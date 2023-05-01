@@ -3,7 +3,7 @@ import apiClient from "./api-clients";
 interface Entity {
   id: number;
 }
-
+// Generic HttpService Class
 class HttpService {
   endpoint: string;
 
@@ -13,6 +13,7 @@ class HttpService {
 
   getAll<T>() {
     const controller = new AbortController();
+    //this.endpoint; === "/users"
     const request = apiClient.get<T[]>(this.endpoint, {
       signal: controller.signal,
     });
@@ -23,10 +24,12 @@ class HttpService {
     return apiClient.delete(this.endpoint + "/" + id);
   }
 
+  //createUser(user: User)
   create<T>(entity: T) {
     return apiClient.post(this.endpoint, entity);
   }
 
+  //updateUser(user: User)
   update<T extends Entity>(entity: T) {
     return apiClient.patch(this.endpoint + "/" + entity.id, entity);
   }
