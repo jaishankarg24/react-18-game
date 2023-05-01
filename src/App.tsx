@@ -15,6 +15,7 @@ import Form from "./components/Form";
 import ExpenseFilter from "./expense-tracker/components/ExpenseFilter";
 import ExpenseList from "./expense-tracker/components/ExpenseList";
 import ExpenseForm from "./expense-tracker/components/ExpenseForm";
+import ProductList from "./components/ProductList";
 
 function App() {
   let items = ["New York", "San Francisco", "Tokyo", "London", "Paris"];
@@ -161,8 +162,21 @@ function App() {
     console.log("doc");
   });
 
+  const [category, setCategory] = useState("");
+
   return (
     <div>
+      <div>
+        <select
+          className="form-select"
+          onChange={(event) => setCategory(event.target.value)}
+        >
+          <option value=""></option>
+          <option value="Clothing">Clothing</option>
+          <option value="Household">Household</option>
+        </select>
+        <ProductList category={category} />
+      </div>
       <div>
         <input ref={ref} type="text" className="form-control" />
       </div>
