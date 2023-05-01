@@ -16,7 +16,8 @@ import ExpenseFilter from "./expense-tracker/components/ExpenseFilter";
 import ExpenseList from "./expense-tracker/components/ExpenseList";
 import ExpenseForm from "./expense-tracker/components/ExpenseForm";
 import ProductList from "./components/ProductList";
-import axios, { AxiosError, CanceledError } from "axios";
+// import axios, { AxiosError, CanceledError } from "axios";
+import apiClient, { CanceledError } from "./components/services/api-clients";
 
 interface User {
   id: number;
@@ -204,14 +205,89 @@ function App() {
   //   fetchUsers();
   // }, []);
 
+  // const [isLoading, setLoading] = useState(false);
+
+  // useEffect(() => {
+  //   const abortController = new AbortController();
+
+  //   setLoading(true);
+  //   axios
+  //     .get<User[]>("https://jsonplaceholder.typicode.com/users", {
+  //       signal: abortController.signal,
+  //     })
+  //     .then((res) => {
+  //       setUsers(res.data);
+  //       setLoading(false);
+  //     })
+  //     .catch((err) => {
+  //       if (err instanceof CanceledError) return;
+  //       setError(err.message);
+  //       setLoading(false);
+  //     });
+  // .finally(() => {
+  //   setLoading(false);
+  // });
+
+  // setLoading(false);
+  // }, []);
+
+  // const deleteUser = (user: User) => {
+  //   const originalUsers = [...users];
+  //   setUsers(users.filter((u) => u.id !== user.id));
+
+  //   axios
+  //     .delete("https://jsonplaceholder.typicode.com/users/" + user.id)
+  //     .catch((err) => {
+  //       setError(err.message);
+  //       setUsers(originalUsers);
+  //     });
+  // };
+
+  // const addUser = () => {
+  //   const originalUsers = [...users];
+  //   const newUser = { id: 0, name: "Jai" };
+
+  //   setUsers([...users, newUser]);
+
+  //   axios
+  //     .post("https://jsonplaceholder.typicode.com/users/", newUser)
+  //     .then(({ data: savedUser }) => setUsers([savedUser, ...users]))
+  //     .catch((err) => {
+  //       setError(err.message);
+  //       setUsers(originalUsers);
+  //     });
+
+  //.then((res) => setUsers([...users, res.data]));
+  // };
+
+  // const updateUser = (user: User) => {
+  //   const originalUsers = [...users];
+  //   const updatedUser = { ...user, name: user.name + "!" };
+
+  //   setUsers(users.map((u) => (u.id === user.id ? updatedUser : u)));
+
+  //   axios
+  //     .patch(
+  //       "https://jsonplaceholder.typicode.com/users/" + user.id,
+  //       updatedUser
+  //     )
+  //     .catch((err) => {
+  //       setError(err.message);
+  //       setUsers(originalUsers);
+  //     });
+
+  // put for single property update
+  // patch for multiple properties update
+  // };
+
   const [isLoading, setLoading] = useState(false);
 
   useEffect(() => {
     const abortController = new AbortController();
 
     setLoading(true);
-    axios
-      .get<User[]>("https://jsonplaceholder.typicode.com/users", {
+    apiClient
+      .get<User[]>("/users", {
         signal: abortController.signal,
       })
       .then((res) => {
@@ -234,12 +310,10 @@ function App() {
     const originalUsers = [...users];
     setUsers(users.filter((u) => u.id !== user.id));
 
-    axios
-      .delete("https://jsonplaceholder.typicode.com/users/" + user.id)
-      .catch((err) => {
-        setError(err.message);
-        setUsers(originalUsers);
-      });
+    apiClient.delete("/users/" + user.id).catch((err) => {
+      setError(err.message);
+      setUsers(originalUsers);
+    });
   };
 
   const addUser = () => {
@@ -248,8 +322,8 @@ function App() {
 
     setUsers([...users, newUser]);
 
-    axios
-      .post("https://jsonplaceholder.typicode.com/users/", newUser)
+    apiClient
+      .post("/users/", newUser)
       .then(({ data: savedUser }) => setUsers([savedUser, ...users]))
       .catch((err) => {
         setError(err.message);
@@ -265,15 +339,10 @@ function App() {
 
     setUsers(users.map((u) => (u.id === user.id ? updatedUser : u)));
 
-    axios
-      .patch(
-        "https://jsonplaceholder.typicode.com/users/" + user.id,
-        updatedUser
-      )
-      .catch((err) => {
-        setError(err.message);
-        setUsers(originalUsers);
-      });
+    apiClient.patch("/users/" + user.id, updatedUser).catch((err) => {
+      setError(err.message);
+      setUsers(originalUsers);
+    });
 
     // put for single property update
     // patch for multiple properties update
