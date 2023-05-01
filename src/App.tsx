@@ -3,7 +3,7 @@ import Message from "./Message";
 import ListGroup from "./components/ListGroup";
 import Alert from "./components/Alert";
 import Button from "./components/Button/Button";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import "./App.css";
 import { BsFillCalendarDayFill } from "react-icons/bs";
 import Like from "./components/Like";
@@ -147,8 +147,25 @@ function App() {
     ? expenses.filter((e) => e.category === selectedCategory)
     : expenses;
 
+  const ref = useRef<HTMLInputElement>(null);
+
+  // afterRender
+  useEffect(() => {
+    console.log("current");
+    //Side Effect
+    if (ref.current) ref.current.focus();
+  });
+
+  useEffect(() => {
+    document.title = "My App";
+    console.log("doc");
+  });
+
   return (
     <div>
+      <div>
+        <input ref={ref} type="text" className="form-control" />
+      </div>
       <div className="mb-5">
         <ExpenseForm
           onSubmit={(expense) =>
