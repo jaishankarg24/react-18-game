@@ -18,11 +18,12 @@ import ExpenseForm from "./expense-tracker/components/ExpenseForm";
 import ProductList from "./components/ProductList";
 // import axios, { AxiosError, CanceledError } from "axios";
 import apiClient, { CanceledError } from "./components/services/api-clients";
+import create, { User } from "./components/services/user-service";
 
-interface User {
-  id: number;
-  name: string;
-}
+// interface User {
+//   id: number;
+//   name: string;
+// }
 
 function App() {
   let items = ["New York", "San Francisco", "Tokyo", "London", "Paris"];
@@ -182,6 +183,7 @@ function App() {
   const [users, setUsers] = useState<User[]>([]);
   const [error, setError] = useState("");
 
+  // 1
   // useEffect(() => {
   //   axios
   //     .get<User[]>("https://jsonplaceholder.typicode.com/users")
@@ -280,18 +282,86 @@ function App() {
   // patch for multiple properties update
   // };
 
+  // 2
+  // const [isLoading, setLoading] = useState(false);
+
+  // useEffect(() => {
+  //   const abortController = new AbortController();
+
+  //   setLoading(true);
+  //   apiClient
+  //     .get<User[]>("/users", {
+  //       signal: abortController.signal,
+  //     })
+  //     .then((res) => {
+  //       setUsers(res.data);
+  //       setLoading(false);
+  //     })
+  //     .catch((err) => {
+  //       if (err instanceof CanceledError) return;
+  //       setError(err.message);
+  //       setLoading(false);
+  //     });
+  // .finally(() => {
+  //   setLoading(false);
+  // });
+
+  // setLoading(false);
+  // }, []);
+
+  // const deleteUser = (user: User) => {
+  //   const originalUsers = [...users];
+  //   setUsers(users.filter((u) => u.id !== user.id));
+
+  //   apiClient.delete("/users/" + user.id).catch((err) => {
+  //     setError(err.message);
+  //     setUsers(originalUsers);
+  //   });
+  // };
+
+  // const addUser = () => {
+  //   const originalUsers = [...users];
+  //   const newUser = { id: 0, name: "Jai" };
+
+  //   setUsers([...users, newUser]);
+
+  //   apiClient
+  //     .post("/users/", newUser)
+  //     .then(({ data: savedUser }) => setUsers([savedUser, ...users]))
+  //     .catch((err) => {
+  //       setError(err.message);
+  //       setUsers(originalUsers);
+  //     });
+
+  //.then((res) => setUsers([...users, res.data]));
+  // };
+
+  // const updateUser = (user: User) => {
+  //   const originalUsers = [...users];
+  //   const updatedUser = { ...user, name: user.name + "!" };
+
+  //   setUsers(users.map((u) => (u.id === user.id ? updatedUser : u)));
+
+  //   apiClient.patch("/users/" + user.id, updatedUser).catch((err) => {
+  //     setError(err.message);
+  //     setUsers(originalUsers);
+  //   });
+
+  // put for single property update
+  // patch for multiple properties update
+  // };
+
+  // 3
   const [isLoading, setLoading] = useState(false);
 
   useEffect(() => {
-    const abortController = new AbortController();
+    //const abortController = new AbortController();
 
     setLoading(true);
-    apiClient
-      .get<User[]>("/users", {
-        signal: abortController.signal,
-      })
+    const { request, cancel } = create.getAll();
+    request
       .then((res) => {
-        setUsers(res.data);
+        setUsers(res.data as User[]);
         setLoading(false);
       })
       .catch((err) => {
@@ -299,6 +369,8 @@ function App() {
         setError(err.message);
         setLoading(false);
       });
+
+    return () => cancel();
     // .finally(() => {
     //   setLoading(false);
     // });
@@ -310,7 +382,7 @@ function App() {
     const originalUsers = [...users];
     setUsers(users.filter((u) => u.id !== user.id));
 
-    apiClient.delete("/users/" + user.id).catch((err) => {
+    create.delete(user.id).catch((err) => {
       setError(err.message);
       setUsers(originalUsers);
     });
@@ -322,8 +394,8 @@ function App() {
 
     setUsers([...users, newUser]);
 
-    apiClient
-      .post("/users/", newUser)
+    create
+      .create(newUser)
       .then(({ data: savedUser }) => setUsers([savedUser, ...users]))
       .catch((err) => {
         setError(err.message);
@@ -339,7 +411,7 @@ function App() {
 
     setUsers(users.map((u) => (u.id === user.id ? updatedUser : u)));
 
-    apiClient.patch("/users/" + user.id, updatedUser).catch((err) => {
+    create.update(updatedUser).catch((err) => {
       setError(err.message);
       setUsers(originalUsers);
     });
