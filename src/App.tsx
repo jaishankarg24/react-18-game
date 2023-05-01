@@ -17,9 +17,10 @@ import ExpenseList from "./expense-tracker/components/ExpenseList";
 import ExpenseForm from "./expense-tracker/components/ExpenseForm";
 import ProductList from "./components/ProductList";
 // import axios, { AxiosError, CanceledError } from "axios";
-import apiClient, { CanceledError } from "./components/services/api-clients";
-import create, { User } from "./components/services/user-service";
+import apiClient, { CanceledError } from "./services/api-clients";
+import create, { User } from "./services/user-service";
 //import userService, { User } from "./components/services/user-service";
+import useUsers from "./hooks/useUsers";
 
 // interface User {
 //   id: number;
@@ -181,8 +182,8 @@ function App() {
     return () => disconnect();
   });
 
-  const [users, setUsers] = useState<User[]>([]);
-  const [error, setError] = useState("");
+  // const [users, setUsers] = useState<User[]>([]);
+  // const [error, setError] = useState("");
 
   // 1
   // useEffect(() => {
@@ -353,32 +354,78 @@ function App() {
   // };
 
   // 3
-  const [isLoading, setLoading] = useState(false);
+  // const [isLoading, setLoading] = useState(false);
 
-  useEffect(() => {
-    //const abortController = new AbortController();
+  // useEffect(() => {
+  //const abortController = new AbortController();
 
-    setLoading(true);
-    const { request, cancel } = create.getAll<User>();
-    request
-      .then((res) => {
-        setUsers(res.data);
-        // setUsers(res.data as User[]);
-        setLoading(false);
-      })
-      .catch((err) => {
-        if (err instanceof CanceledError) return;
-        setError(err.message);
-        setLoading(false);
-      });
+  //   setLoading(true);
+  //   const { request, cancel } = create.getAll<User>();
+  //   request
+  //     .then((res) => {
+  //       setUsers(res.data);
+  //       // setUsers(res.data as User[]);
+  //       setLoading(false);
+  //     })
+  //     .catch((err) => {
+  //       if (err instanceof CanceledError) return;
+  //       setError(err.message);
+  //       setLoading(false);
+  //     });
 
-    return () => cancel();
-    // .finally(() => {
-    //   setLoading(false);
-    // });
+  //   return () => cancel();
+  // .finally(() => {
+  //   setLoading(false);
+  // });
 
-    // setLoading(false);
-  }, []);
+  // setLoading(false);
+  // }, []);
+
+  // const deleteUser = (user: User) => {
+  //   const originalUsers = [...users];
+  //   setUsers(users.filter((u) => u.id !== user.id));
+
+  //   create.delete(user.id).catch((err) => {
+  //     setError(err.message);
+  //     setUsers(originalUsers);
+  //   });
+  // };
+
+  // const addUser = () => {
+  //   const originalUsers = [...users];
+  //   const newUser = { id: 0, name: "Jai" };
+
+  //   setUsers([...users, newUser]);
+
+  //   create
+  //     .create(newUser)
+  //     .then(({ data: savedUser }) => setUsers([savedUser, ...users]))
+  //     .catch((err) => {
+  //       setError(err.message);
+  //       setUsers(originalUsers);
+  //     });
+
+  //.then((res) => setUsers([...users, res.data]));
+  // };
+
+  // const updateUser = (user: User) => {
+  //   const originalUsers = [...users];
+  //   const updatedUser = { ...user, name: user.name + "!" };
+
+  //   setUsers(users.map((u) => (u.id === user.id ? updatedUser : u)));
+
+  //   create.update(updatedUser).catch((err) => {
+  //     setError(err.message);
+  //     setUsers(originalUsers);
+  //   });
+
+  // put for single property update
+  // patch for multiple properties update
+  // };
+
+  // 4. Using Custom Hook - useUsers()
+
+  const { users, error, isLoading, setUsers, setError } = useUsers();
 
   const deleteUser = (user: User) => {
     const originalUsers = [...users];
